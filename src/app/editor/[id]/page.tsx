@@ -1,6 +1,7 @@
 'use client'
 
 import { use, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { notFound } from 'next/navigation'
 import { AppLayout } from '@/components/layout/AppLayout'
 import { PromptEditor } from '@/components/editor/PromptEditor'
@@ -14,32 +15,14 @@ import Link from 'next/link'
 
 type Tab = 'editor' | 'optimizer' | 'history'
 
-const NEW_PROMPT_TEMPLATE: Prompt = {
-  id: 'new',
-  title: 'Untitled Prompt',
-  content: '',
-  description: '',
-  authorId: '',
-  authorUsername: '',
-  model: 'gpt-4o',
-  temperature: 0.7,
-  maxTokens: 1000,
-  visibility: 'private',
-  price: 0,
-  likes: 0,
-  purchases: 0,
-  tags: [],
-  category: 'General',
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-  versions: [],
-}
-
 export default function PromptEditorPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
+  const router = useRouter()
   const { prompts, createPrompt, currentUser } = useStore()
   const [activeTab, setActiveTab] = useState<Tab>('editor')
   const [appliedContent, setAppliedContent] = useState<string | undefined>()
+  // Keep a stable generated id for the "new" prompt so it doesn't change on re-renders
+  const [newPromptId] = useState(() => generateId())
 
   const isNew = id === 'new'
   let prompt: Prompt | undefined
@@ -49,10 +32,24 @@ export default function PromptEditorPage({ params }: { params: Promise<{ id: str
     if (!prompt) return notFound()
   } else {
     prompt = {
-      ...NEW_PROMPT_TEMPLATE,
-      id: generateId(),
+      id: newPromptId,
+      title: 'Untitled Prompt',
+      content: '',
+      description: '',
       authorId: currentUser?.id || '',
       authorUsername: currentUser?.username || '',
+      model: 'gpt-4o',
+      temperature: 0.7,
+      maxTokens: 1000,
+      visibility: 'private',
+      price: 0,
+      likes: 0,
+      purchases: 0,
+      tags: [],
+      category: 'General',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      versions: [],
     }
   }
 
@@ -92,6 +89,11 @@ export default function PromptEditorPage({ params }: { params: Promise<{ id: str
       {activeTab === 'editor' && (
         <PromptEditor
           prompt={appliedContent ? { ...prompt, content: appliedContent } : prompt}
+          isNew={isNew}
+          onCreate={(data) => {
+            const created = createPrompt(data)
+            router.push(`/editor/${created.id}`)
+          }}
         />
       )}
       {activeTab === 'optimizer' && (

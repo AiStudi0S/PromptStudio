@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Bell, Search, Zap } from 'lucide-react'
+import { Bell, Zap } from 'lucide-react'
 import { useStore } from '@/lib/store'
 import { useAuth } from '@/hooks/useAuth'
 

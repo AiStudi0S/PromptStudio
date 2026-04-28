@@ -15,7 +15,7 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ user, isOwnProfile = false }: ProfileHeaderProps) {
-  const { currentUser, followUser } = useStore()
+  const { followUser } = useStore()
   const [following, setFollowing] = useState(false)
 
   const handleFollow = () => {

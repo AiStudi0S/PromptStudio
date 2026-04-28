@@ -2,7 +2,6 @@
 
 import { AppLayout } from '@/components/layout/AppLayout'
 import { useStore } from '@/lib/store'
-import { useAuth } from '@/hooks/useAuth'
 import { timeAgo } from '@/lib/utils'
 import { Bell, Heart, ShoppingCart, UserPlus, MessageSquare, Zap, CheckCheck } from 'lucide-react'
 import { Button } from '@/components/ui/Button'

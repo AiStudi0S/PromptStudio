@@ -31,7 +31,7 @@ export function Card({ className, glow = 'none', hover = false, children, ...pro
   )
 }
 
-interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {}
+type CardHeaderProps = HTMLAttributes<HTMLDivElement>
 export function CardHeader({ className, children, ...props }: CardHeaderProps) {
   return (
     <div className={cn('mb-3', className)} {...props}>
@@ -40,7 +40,7 @@ export function CardHeader({ className, children, ...props }: CardHeaderProps) {
   )
 }
 
-interface CardBodyProps extends HTMLAttributes<HTMLDivElement> {}
+type CardBodyProps = HTMLAttributes<HTMLDivElement>
 export function CardBody({ className, children, ...props }: CardBodyProps) {
   return (
     <div className={cn('', className)} {...props}>
@@ -49,7 +49,7 @@ export function CardBody({ className, children, ...props }: CardBodyProps) {
   )
 }
 
-interface CardFooterProps extends HTMLAttributes<HTMLDivElement> {}
+type CardFooterProps = HTMLAttributes<HTMLDivElement>
 export function CardFooter({ className, children, ...props }: CardFooterProps) {
   return (
     <div className={cn('mt-3 pt-3 border-t border-[#1e1e2e]', className)} {...props}>

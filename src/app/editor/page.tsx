@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { AppLayout } from '@/components/layout/AppLayout'
 import { usePrompts } from '@/hooks/usePrompts'
-import { useStore } from '@/lib/store'
 import { formatCurrency, formatNumber, MODEL_LABELS, MODEL_COLORS, timeAgo, cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Plus, Eye, EyeOff, Heart, ShoppingCart, Pencil, Trash2, PenSquare } from 'lucide-react'
@@ -11,7 +10,6 @@ import { useState } from 'react'
 
 export default function EditorListPage() {
   const { myPrompts, deletePrompt } = usePrompts()
-  const { currentUser } = useStore()
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null)
 
   return (

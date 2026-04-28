@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { AppLayout } from '@/components/layout/AppLayout'
 import { useStore } from '@/lib/store'
-import { AIModelConfig } from '@/lib/types'
+import { AIModelConfig, AppSettings } from '@/lib/types'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Badge } from '@/components/ui/Badge'
@@ -188,20 +188,22 @@ export default function AdminSettingsPage() {
             <h3 className="text-sm font-semibold text-slate-300">General Settings</h3>
           </div>
           <div className="space-y-3">
-            {[
-              { key: 'maintenanceMode', label: 'Maintenance Mode', desc: 'Block all non-admin access' },
-              { key: 'allowRegistration', label: 'Allow Registration', desc: 'New user sign-ups enabled' },
-            ].map(setting => (
+            {(
+              [
+                { key: 'maintenanceMode' as const, label: 'Maintenance Mode', desc: 'Block all non-admin access' },
+                { key: 'allowRegistration' as const, label: 'Allow Registration', desc: 'New user sign-ups enabled' },
+              ] satisfies Array<{ key: keyof Pick<AppSettings, 'maintenanceMode' | 'allowRegistration'>; label: string; desc: string }>
+            ).map(setting => (
               <div key={setting.key} className="flex items-center justify-between p-3 bg-[#0a0a0f] rounded-lg border border-[#1e1e2e]">
                 <div>
                   <p className="text-sm text-slate-300">{setting.label}</p>
                   <p className="text-xs text-slate-600">{setting.desc}</p>
                 </div>
                 <button
-                  onClick={() => updateSettings({ [setting.key]: !settings[setting.key as keyof typeof settings] })}
-                  className={settings[setting.key as keyof typeof settings] ? 'text-[#00f5ff]' : 'text-slate-600'}
+                  onClick={() => updateSettings({ [setting.key]: !settings[setting.key] })}
+                  className={settings[setting.key] ? 'text-[#00f5ff]' : 'text-slate-600'}
                 >
-                  {settings[setting.key as keyof typeof settings] ? <ToggleRight size={22} /> : <ToggleLeft size={22} />}
+                  {settings[setting.key] ? <ToggleRight size={22} /> : <ToggleLeft size={22} />}
                 </button>
               </div>
             ))}

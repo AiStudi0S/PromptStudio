@@ -3,8 +3,6 @@
 import { AppLayout } from '@/components/layout/AppLayout'
 import { AdminStats } from '@/components/admin/AdminStats'
 import { UserTable } from '@/components/admin/UserTable'
-import { useAuth } from '@/hooks/useAuth'
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Users, ShoppingBag, Settings, ShieldCheck, ArrowRight } from 'lucide-react'
 

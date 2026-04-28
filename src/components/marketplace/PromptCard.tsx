@@ -1,11 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { Heart, ShoppingCart, Eye, Star } from 'lucide-react'
+import { Heart, ShoppingCart } from 'lucide-react'
 import { Prompt } from '@/lib/types'
-import { cn, formatCurrency, formatNumber, MODEL_LABELS, MODEL_COLORS, timeAgo, truncate } from '@/lib/utils'
+import { cn, formatCurrency, formatNumber, MODEL_LABELS, MODEL_COLORS, truncate } from '@/lib/utils'
 import { useStore } from '@/lib/store'
-import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 
 interface PromptCardProps {

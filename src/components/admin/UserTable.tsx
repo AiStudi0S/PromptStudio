@@ -4,26 +4,18 @@ import { useState } from 'react'
 import { useStore } from '@/lib/store'
 import { formatCurrency, formatNumber, formatDate } from '@/lib/utils'
 import { User } from '@/lib/types'
-import { Search, Ban, ShieldCheck, ChevronDown } from 'lucide-react'
+import { Search, Ban, ShieldCheck } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
-import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 
 export function UserTable() {
   const { users, banUser, updateUserRole } = useStore()
   const [search, setSearch] = useState('')
-  const [editingRole, setEditingRole] = useState<string | null>(null)
 
   const filtered = users.filter(u =>
     u.username.toLowerCase().includes(search.toLowerCase()) ||
     u.email.toLowerCase().includes(search.toLowerCase())
   )
-
-  const roleColors: Record<string, 'cyan' | 'magenta' | 'yellow' | 'gray'> = {
-    admin: 'magenta',
-    moderator: 'yellow',
-    user: 'gray',
-  }
 
   return (
     <div className="bg-[#111118] rounded-xl border border-[#1e1e2e] overflow-hidden">

@@ -239,8 +239,8 @@ const MOCK_NOTIFICATIONS: Notification[] = [
 const MOCK_SETTINGS: AppSettings = {
   platformFeePercent: 15,
   paymentIntegrations: [
-    { provider: 'stripe', enabled: true, apiKey: 'sk_test_...', webhookSecret: 'whsec_...' },
-    { provider: 'paypal', enabled: true, apiKey: 'paypal_key_...' },
+    { provider: 'stripe', enabled: true },
+    { provider: 'paypal', enabled: true },
     { provider: 'cashapp', enabled: false },
     { provider: 'gcash', enabled: false },
   ],

@@ -5,7 +5,6 @@ import { History, RotateCcw, ChevronDown, ChevronUp } from 'lucide-react'
 import { Prompt, PromptVersion } from '@/lib/types'
 import { useStore } from '@/lib/store'
 import { timeAgo } from '@/lib/utils'
-import { Button } from '@/components/ui/Button'
 
 interface VersionHistoryProps {
   prompt: Prompt

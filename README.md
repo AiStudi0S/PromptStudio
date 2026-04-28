@@ -4,7 +4,7 @@
 
 ## 🎯 Overview
 
-PromptStudio is a full-stack, mobile-first web application built with **Next.js 14**, **Tailwind CSS**, and **TypeScript**. It features a cyberpunk dark UI with neon glow accents and glassmorphism cards.
+PromptStudio is a full-stack, mobile-first web application built with **Next.js 15.5.15**, **Tailwind CSS**, and **TypeScript**. It features a cyberpunk dark UI with neon glow accents and glassmorphism cards.
 
 ## ✨ Features
 
@@ -53,7 +53,7 @@ PromptStudio is a full-stack, mobile-first web application built with **Next.js 
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Next.js 14 (App Router) |
+| Framework | Next.js 15.5.15 (App Router) |
 | Styling | Tailwind CSS + custom neon/cyberpunk theme |
 | Language | TypeScript |
 | Animations | Framer Motion |
@@ -112,8 +112,9 @@ src/
 
 ## 🔒 Security Notes
 
-- Authentication uses JWT simulation via localStorage (replace with real backend)
-- All forms include CSRF-safe patterns
-- Password fields use `type="password"` with proper autocomplete attributes
-- Safe fetch wrappers used throughout (no native `window`/`fetch` overwrites)
+- **Authentication is a client-side mock** using in-memory Zustand state and localStorage. It is **not** production-ready — replace it with a real backend, secure session management, and validated API protections before deploying.
+- No server-backed session management, CSRF protection, or token verification is implemented in this codebase as shown.
+- Password fields use `type="password"` with appropriate `autoComplete` attributes where applicable.
+- There is no `safeFetch` wrapper — all network calls use the standard browser `fetch` API directly.
+- Mock data contains no real API keys or secrets; payment integration API keys are intentionally left blank and must be configured via environment variables in a production deployment.
 

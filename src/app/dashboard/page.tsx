@@ -16,7 +16,6 @@ export default function DashboardPage() {
   const { prompts } = useStore()
 
   const totalLikes = myPrompts.reduce((s, p) => s + p.likes, 0)
-  const totalSales = myPrompts.reduce((s, p) => s + p.purchases, 0)
 
   return (
     <AppLayout title="Dashboard">

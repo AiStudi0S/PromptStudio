@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Prompt, AIModel } from '@/lib/types'
 import { useStore } from '@/lib/store'
 import { Button } from '@/components/ui/Button'
@@ -16,9 +16,11 @@ const MODELS: AIModel[] = [
 
 interface PromptEditorProps {
   prompt: Prompt
+  isNew?: boolean
+  onCreate?: (data: Partial<Prompt>) => void
 }
 
-export function PromptEditor({ prompt }: PromptEditorProps) {
+export function PromptEditor({ prompt, isNew, onCreate }: PromptEditorProps) {
   const { updatePrompt } = useStore()
   const [form, setForm] = useState({
     title: prompt.title,
@@ -33,13 +35,35 @@ export function PromptEditor({ prompt }: PromptEditorProps) {
   })
   const [saved, setSaved] = useState(false)
 
+  // Sync form when prompt identity or content changes (e.g. after optimizer applies output)
+  useEffect(() => {
+    setForm(prev => ({
+      ...prev,
+      title: prompt.title,
+      content: prompt.content,
+      description: prompt.description || '',
+      model: prompt.model,
+      temperature: prompt.temperature,
+      maxTokens: prompt.maxTokens,
+      visibility: prompt.visibility,
+      price: prompt.price,
+      tags: prompt.tags.join(', '),
+    }))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prompt.id, prompt.content])
+
   const handleSave = () => {
-    updatePrompt(prompt.id, {
+    const data: Partial<Prompt> = {
       ...form,
       tags: form.tags.split(',').map(t => t.trim()).filter(Boolean),
-    })
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+    }
+    if (isNew && onCreate) {
+      onCreate(data)
+    } else {
+      updatePrompt(prompt.id, data)
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2000)
+    }
   }
 
   return (
